@@ -6,8 +6,8 @@ export const findSingleBook = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
-    const book = await Book.findById(id);
+    const { bookId } = req.params;
+    const book = await Book.findById({ _id: bookId });
 
     if (!book) {
       res.status(404).json({
