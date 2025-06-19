@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 
 const deleteBook = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    const book = await Book.findById(id);
+    const { bookId } = req.params;
+    const book = await Book.findById(bookId);
 
     if (!book) {
       res
