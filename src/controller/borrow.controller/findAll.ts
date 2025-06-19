@@ -3,7 +3,32 @@ import Borrow from "../../models/Borrow.model/Borrow.model";
 
 const findAllBorrows = async (req: Request, res: Response) => {
   try {
-    const borrows = await Borrow.find();
+    const borrows = await Borrow.aggregate([
+      {
+        $group: { _id: "$book", totalQuantity: { $sum: "$quantity" } },
+      },
+      {
+        $lookup: {
+          from: "books",
+          localField: "_id",
+          foreignField: "_id",
+          as: "book",
+        },
+      },
+      {
+        $unwind: "$book",
+      },
+      {
+        $project: {
+          _id: 0,
+          book: {
+            title: "$book.title",
+            isbn: "$book.isbn",
+          },
+          totalQuantity: 1,
+        },
+      },
+    ]);
     res.status(200).json({
       success: true,
       message: "Borrows retrieved successfully",
