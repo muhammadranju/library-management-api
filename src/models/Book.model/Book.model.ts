@@ -5,16 +5,15 @@ const BookSchema = new Schema<IBook>(
   {
     title: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, "Title is required"],
     },
     author: {
       type: String,
-      required: true,
+      required: [true, "Author is required"],
     },
     genre: {
       type: String,
-      required: true,
+      required: [true, "Genre is required"],
       enum: [
         "FICTION",
         "NON_FICTION",
@@ -26,7 +25,7 @@ const BookSchema = new Schema<IBook>(
     },
     isbn: {
       type: String,
-      required: true,
+      required: [true, "ISBN is required"],
       unique: true,
     },
     description: {
@@ -34,7 +33,7 @@ const BookSchema = new Schema<IBook>(
     },
     copies: {
       type: Number,
-      required: true,
+      required: [true, "Copies is required"],
       min: 0,
     },
     available: {
@@ -46,6 +45,13 @@ const BookSchema = new Schema<IBook>(
     timestamps: true,
   }
 );
+
+BookSchema.post("save", function (_doc, next) {
+  if (this.copies === 0) {
+    this.available = false;
+  }
+  next();
+});
 
 const Book = model<IBook>("Book", BookSchema);
 
