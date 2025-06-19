@@ -18,7 +18,11 @@ app.use("/api", routers);
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello from Express + TypeScript + Mongoose!");
+  res.status(200).json({
+    success: true,
+    message: "Hello from Express + TypeScript + Mongoose!",
+    data: null,
+  });
 });
 
 app.listen(port, () => {
