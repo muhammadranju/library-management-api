@@ -3,16 +3,20 @@ import Book from "../../models/Book.model/Book.model";
 
 const updateBook = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const { title, author, isbn, price, description, imageUrl } = req.body;
-    const book = await Book.findByIdAndUpdate(id, {
-      title,
-      author,
-      isbn,
-      price,
-      description,
-      imageUrl,
-    });
+    const { bookId } = req.params;
+    const { title, author, isbn, copies, description, available } = req.body;
+    const book = await Book.findByIdAndUpdate(
+      bookId,
+      {
+        title,
+        author,
+        isbn,
+        description,
+        copies,
+        available,
+      },
+      { new: true }
+    );
     res.status(200).json({
       success: true,
       message: "Book updated successfully",
