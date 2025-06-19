@@ -1,6 +1,7 @@
 import Book from "../../models/Book.model/Book.model";
 
 import { Request, Response } from "express";
+
 const createBook = async (req: Request, res: Response) => {
   try {
     const { title, author, isbn, genre, description, copies, available } =
@@ -15,6 +16,7 @@ const createBook = async (req: Request, res: Response) => {
       available,
     });
     await book.save();
+
     res.status(201).json({
       success: true,
       message: "Book created successfully",
