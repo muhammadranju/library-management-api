@@ -13,15 +13,15 @@ const updateBook = async (req: Request, res: Response) => {
       description,
       imageUrl,
     });
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Book updated successfully",
-        data: book,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Book updated successfully",
+      data: book,
+    });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Book update failed", success: false, error: error });
   }
 };
 
