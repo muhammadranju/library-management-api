@@ -31,7 +31,7 @@ const findAllBorrows = async (req: Request, res: Response) => {
     ]);
     res.status(200).json({
       success: true,
-      message: "Borrows retrieved successfully",
+      message: "Borrows summery retrieved successfully",
       data: borrows,
     });
   } catch (error) {

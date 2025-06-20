@@ -6,10 +6,12 @@ const BookSchema = new Schema<IBook>(
     title: {
       type: String,
       required: [true, "Title is required"],
+      trim: true,
     },
     author: {
       type: String,
       required: [true, "Author is required"],
+      trim: true,
     },
     genre: {
       type: String,
@@ -27,6 +29,7 @@ const BookSchema = new Schema<IBook>(
       type: String,
       required: [true, "ISBN is required"],
       unique: true,
+      trim: true,
     },
     description: {
       type: String,
