@@ -46,12 +46,12 @@ const BookSchema = new Schema<IBook>(
   }
 );
 
-BookSchema.post("save", function (_doc, next) {
-  if (this.copies === 0) {
-    this.available = false;
-  }
-  next();
-});
+// BookSchema.post("save", function (_doc, next) {
+//   if (this.copies === 0) {
+//     this.available = false;
+//   }
+//   next();
+// });
 
 const Book = model<IBook>("Book", BookSchema);
 
