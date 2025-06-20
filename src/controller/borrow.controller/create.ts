@@ -40,11 +40,6 @@ const createBorrow = async (req: Request, res: Response): Promise<void> => {
 
     findBook.copies -= quantity;
 
-    // Update availability if copies become zero
-    // if (findBook.copies === 0) {
-    //   findBook.available = false;
-    // }
-
     await findBook.save();
 
     // Save borrow record
@@ -54,6 +49,7 @@ const createBorrow = async (req: Request, res: Response): Promise<void> => {
       dueDate,
     });
 
+    await Borrow.updateAvailability(book as string);
     await borrow.save();
 
     res.status(201).json({
