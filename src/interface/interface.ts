@@ -1,6 +1,6 @@
-import { Document, Types } from "mongoose";
+import { Model, Types } from "mongoose";
 
-export interface IBook extends Document {
+export interface IBook {
   title: string;
   author: string;
   genre:
@@ -18,10 +18,14 @@ export interface IBook extends Document {
   updatedAt: Date;
 }
 
-export interface IBorrow extends Document {
+export interface IBorrow {
   book: Types.ObjectId; // or IBook if populated
   quantity: number;
   dueDate: Date;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IBorrowUpdate extends Model<IBorrow> {
+  updateAvailability(id: string): void;
 }
