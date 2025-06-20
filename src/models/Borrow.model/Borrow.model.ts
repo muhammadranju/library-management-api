@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IBorrow } from "../../interface/interface";
+import { IBorrow, IBorrowUpdate } from "../../interface/interface";
+import Book from "../Book.model/Book.model";
 
-const BorrowSchema = new Schema<IBorrow>(
+const BorrowSchema = new Schema<IBorrow, IBorrowUpdate>(
   {
     book: {
       type: Schema.Types.ObjectId,
@@ -23,6 +24,23 @@ const BorrowSchema = new Schema<IBorrow>(
   }
 );
 
-const Borrow = model<IBorrow>("Borrow", BorrowSchema);
+BorrowSchema.static("updateAvailability", async function (id: string) {
+  const findBook = await Book.findById(id);
+  if (findBook?.copies === 0) {
+    await Book.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          available: false,
+        },
+      },
+      {
+        runValidators: true,
+      }
+    );
+  }
+});
+
+const Borrow = model<IBorrow, IBorrowUpdate>("Borrow", BorrowSchema);
 
 export default Borrow;

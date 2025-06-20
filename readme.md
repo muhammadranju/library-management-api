@@ -97,10 +97,10 @@ GET /api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5
 
 ### Borrows
 
-| Method | Endpoint       | Description                               |
-| ------ | -------------- | ----------------------------------------- |
-| GET    | `/api/borrows` | Get all borrows (aggregated book summary) |
-| POST   | `/api/borrows` | Create a borrow request                   |
+| Method | Endpoint      | Description                               |
+| ------ | ------------- | ----------------------------------------- |
+| GET    | `/api/borrow` | Get all borrows (aggregated book summary) |
+| POST   | `/api/borrow` | Create a borrow request                   |
 
 #### Aggregated Borrow Summary
 
@@ -161,13 +161,3 @@ Returns total quantity borrowed for each book:
   "available": true
 }
 ```
-
----
-
-## Future Improvements
-
-- User authentication (JWT)
-- Role-based access (Admin, Member)
-- Borrow due date reminders
-- Fine calculation on overdue returns
-- Pagination support
