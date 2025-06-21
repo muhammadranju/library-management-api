@@ -10,14 +10,18 @@ const findAllBooks = async (req: Request, res: Response) => {
       limit = 10,
     } = req.query;
 
-    const query: any = {};
+    const query: Record<string, any> = {};
     if (filter) {
       query.genre = filter;
     }
 
+    const sortField = sortBy as string;
+    const sortOrder = sort === "desc" ? -1 : 1;
+    const limitNumber = parseInt(limit as string, 10); // radix 10 for clarity
+
     const books = await Book.find(query)
-      .sort({ [sortBy as string]: sort === "desc" ? -1 : 1 })
-      .limit(parseInt(limit as string));
+      .sort({ [sortField]: sortOrder })
+      .limit(limitNumber);
 
     res.status(200).json({
       success: true,
