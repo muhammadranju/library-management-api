@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/db";
 import routers from "./routers";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
@@ -12,6 +13,12 @@ connectDB();
 
 // Middleware to parse JSON
 app.use([express.json(), express.urlencoded({ extended: true })]);
+app.use(
+  cors({
+    origin: "http://localhost:5174", // Or wherever your React app runs
+    credentials: true,
+  })
+);
 
 // Routes
 app.use("/api", routers);

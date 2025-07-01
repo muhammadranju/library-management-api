@@ -4,7 +4,8 @@ import Book from "../../models/Book.model/Book.model";
 const updateBook = async (req: Request, res: Response) => {
   try {
     const { bookId } = req.params;
-    const { title, author, isbn, copies, description, available } = req.body;
+    const { title, author, isbn, copies, description, available, image } =
+      req.body;
     const book = await Book.findByIdAndUpdate(
       bookId,
       {
@@ -14,6 +15,7 @@ const updateBook = async (req: Request, res: Response) => {
         description,
         copies,
         available,
+        image,
       },
       { new: true }
     );

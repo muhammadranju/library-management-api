@@ -4,8 +4,16 @@ import { Request, Response } from "express";
 
 const createBook = async (req: Request, res: Response) => {
   try {
-    const { title, author, isbn, genre, description, copies, available } =
-      req.body;
+    const {
+      title,
+      author,
+      isbn,
+      genre,
+      description,
+      copies,
+      available,
+      image,
+    } = req.body;
     const book = new Book({
       title,
       author,
@@ -13,6 +21,7 @@ const createBook = async (req: Request, res: Response) => {
       genre,
       description,
       copies,
+      image,
       available,
     });
     await book.save();

@@ -15,6 +15,7 @@ export interface IBook {
   copies: number;
   available: boolean;
   createdAt: Date;
+  image: string;
   updatedAt: Date;
 }
 
